@@ -32,13 +32,15 @@ void setup() {
 
 // the loop function runs over and over again forever
 void loop() {
-  // Double blink pattern
-  digitalWrite(LED_BUILTIN, HIGH);   // turn the LED on (HIGH is the voltage level)
-  delay(200);                        // wait for 200 ms
-  digitalWrite(LED_BUILTIN, LOW);    // turn the LED off by making the voltage LOW
-  delay(100);
-  digitalWrite(LED_BUILTIN, HIGH);
-  delay(200);
+  // X times blink pattern
+  const int num_blink_times = 4;
+  for (int i = 0; i < num_blink_times; i++)
+  {
+    digitalWrite(LED_BUILTIN, HIGH);   // turn the LED on (HIGH is the voltage level)
+    delay(200);                        // wait for 200 ms
+    digitalWrite(LED_BUILTIN, LOW);    // turn the LED off by making the voltage LOW
+    delay(300);
+  }
   digitalWrite(LED_BUILTIN, LOW);
   delay(1000);                       // wait for a second
 }
