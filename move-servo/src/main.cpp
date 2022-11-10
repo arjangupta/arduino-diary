@@ -17,3 +17,17 @@
 // }
 
 #include <Servo.h>
+
+Servo robot_servo1;
+
+void setup() {
+  robot_servo1.attach(8,600,2300);
+}
+
+void loop() {
+  robot_servo1.write(0); // go to angle 0
+  delay(1000);
+
+  robot_servo1.write(90); // go to angle 90
+  delay(1000);
+}
