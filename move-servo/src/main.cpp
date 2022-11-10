@@ -28,11 +28,11 @@ void loop() {
   for (size_t i = 0; i < 180; i++)
   {
     robot_servo1.write(i); // go to angle i
-    delay(10);
+    delay(3);
   }
   for (size_t i = 0; i < 180; i++)
   {
     robot_servo1.write(180 - i); // go to angle i
-    delay(10);
+    delay(3);
   }
 }
