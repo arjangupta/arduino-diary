@@ -19,20 +19,24 @@
 #include <Servo.h>
 
 Servo robot_servo1;
+unsigned long sweep_delay = 8;
 
 void setup() {
   robot_servo1.attach(8,525,2050);
 }
 
 void loop() {
+  if (--sweep_delay < 2) {
+    sweep_delay = 8;
+  }
   for (size_t i = 0; i < 180; i++)
   {
     robot_servo1.write(i); // go to angle i
-    delay(3);
+    delay(sweep_delay);
   }
   for (size_t i = 0; i < 180; i++)
   {
     robot_servo1.write(180 - i); // go to angle i
-    delay(3);
+    delay(sweep_delay);
   }
 }
