@@ -21,13 +21,22 @@
 Servo robot_servo1;
 
 void setup() {
-  robot_servo1.attach(8,600,2300);
+  robot_servo1.attach(8,525,2050);
 }
 
 void loop() {
   robot_servo1.write(0); // go to angle 0
   delay(1000);
 
+  robot_servo1.write(45); // go to angle 45
+  delay(1000);
+
   robot_servo1.write(90); // go to angle 90
+  delay(1000);
+
+  robot_servo1.write(135); // go to angle 135
+  delay(1000);
+  
+  robot_servo1.write(180); // go to angle 180
   delay(1000);
 }
