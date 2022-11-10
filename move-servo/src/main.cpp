@@ -25,18 +25,14 @@ void setup() {
 }
 
 void loop() {
-  robot_servo1.write(0); // go to angle 0
-  delay(1000);
-
-  robot_servo1.write(45); // go to angle 45
-  delay(1000);
-
-  robot_servo1.write(90); // go to angle 90
-  delay(1000);
-
-  robot_servo1.write(135); // go to angle 135
-  delay(1000);
-  
-  robot_servo1.write(180); // go to angle 180
-  delay(1000);
+  for (size_t i = 0; i < 180; i++)
+  {
+    robot_servo1.write(i); // go to angle i
+    delay(10);
+  }
+  for (size_t i = 0; i < 180; i++)
+  {
+    robot_servo1.write(180 - i); // go to angle i
+    delay(10);
+  }
 }
