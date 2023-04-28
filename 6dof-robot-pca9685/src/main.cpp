@@ -19,11 +19,11 @@ void setup() {
   delay(10);
 
   // 10 second countdown
-  for (uint8_t i = 0; i < 10; i++) {
-    // Show starting in seconds
-    Serial.print("Starting in "); Serial.println(10 - i);
-    delay(1000);
-  }
+  // for (uint8_t i = 0; i < 10; i++) {
+  //   // Show starting in seconds
+  //   Serial.print("Starting in "); Serial.println(10 - i);
+  //   delay(1000);
+  // }
 
   pwm.setPWM(1, 0, SERVOMAX);
 }
