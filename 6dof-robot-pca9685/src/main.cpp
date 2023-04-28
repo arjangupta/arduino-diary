@@ -2,8 +2,9 @@
 
 Adafruit_PWMServoDriver pwm = Adafruit_PWMServoDriver();
 
-#define SERVOMIN 200
+#define SERVOMIN 100
 #define SERVOMAX 400
+#define SERVOMAX5 200
 #define SERVO_FREQ 50
 #define USMIN 600
 #define USMAX 2400
@@ -20,7 +21,7 @@ void setup() {
 }
 
 // our servo # counter
-uint8_t servonum = 4;
+uint8_t gripper_rotator_servo_num = 4;
 
 void loop() {
 
@@ -30,17 +31,17 @@ void loop() {
   
   
   // Drive each servo one at a time using setPWM()
-  for (uint16_t pulselen = SERVOMIN; pulselen < SERVOMAX; pulselen++) {
-    pwm.setPWM(servonum, 0, pulselen);
-    // pwm.setPWM(servonum+1, 0, pulselen);
+  for (uint16_t pulselen = SERVOMIN; pulselen < SERVOMAX5; pulselen++) {
+    pwm.setPWM(gripper_rotator_servo_num, 0, pulselen+100);
+    pwm.setPWM(gripper_rotator_servo_num+1, 0, pulselen);
     delay(10);
   }
   Serial.println("Reached max position");
   delay(100);
 
-  for (uint16_t pulselen = SERVOMAX; pulselen > SERVOMIN; pulselen--) {
-    pwm.setPWM(servonum, 0, pulselen);
-    // pwm.setPWM(servonum+1, 0, pulselen);
+  for (uint16_t pulselen = SERVOMAX5; pulselen > SERVOMIN; pulselen--) {
+    pwm.setPWM(gripper_rotator_servo_num, 0, pulselen+100);
+    pwm.setPWM(gripper_rotator_servo_num+1, 0, pulselen);
     delay(10);
   }
   Serial.println("Reached min position");
