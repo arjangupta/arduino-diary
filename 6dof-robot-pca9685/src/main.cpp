@@ -10,20 +10,13 @@ Adafruit_PWMServoDriver pwm = Adafruit_PWMServoDriver();
 
 void setup() {
   Serial.begin(9600);
+  Serial.println("6 DoF robot controller");
 
   pwm.begin();
   pwm.setOscillatorFrequency(27000000);
   pwm.setPWMFreq(SERVO_FREQ);  // Analog servos run at this freq
 
   delay(10);
-
-  // 10 second countdown
-  // for (uint8_t i = 0; i < 10; i++) {
-  //   // Show starting in seconds
-  //   Serial.print("Starting in "); Serial.println(10 - i);
-  //   delay(1000);
-  // }
-
 }
 
 // our servo # counter
@@ -42,14 +35,14 @@ void loop() {
     // pwm.setPWM(servonum+1, 0, pulselen);
     delay(10);
   }
+  Serial.println("Reached max position");
+  delay(100);
 
-  delay(500);
   for (uint16_t pulselen = SERVOMAX; pulselen > SERVOMIN; pulselen--) {
     pwm.setPWM(servonum, 0, pulselen);
     // pwm.setPWM(servonum+1, 0, pulselen);
     delay(10);
   }
-
-  // servonum++;
-  // if (servonum > 5) servonum = 0; // Testing the first 6 servo channels
+  Serial.println("Reached min position");
+  delay(100);
 }
