@@ -24,6 +24,8 @@ void setup() {
     Serial.print("Starting in "); Serial.println(10 - i);
     delay(1000);
   }
+
+  pwm.setPWM(1, 0, SERVOMAX);
 }
 
 // our servo # counter
