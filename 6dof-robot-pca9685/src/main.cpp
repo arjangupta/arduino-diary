@@ -2,8 +2,8 @@
 
 Adafruit_PWMServoDriver pwm = Adafruit_PWMServoDriver();
 
-#define SERVOMIN 150
-#define SERVOMAX 600
+#define SERVOMIN 200
+#define SERVOMAX 400
 #define SERVO_FREQ 50
 #define USMIN 600
 #define USMAX 2400
@@ -14,54 +14,36 @@ void setup() {
 
   pwm.begin();
   pwm.setOscillatorFrequency(27000000);
-  pwm.setPWMFreq(SERVO_FREQ);  // Analog servos run at ~50 Hz updates
+  pwm.setPWMFreq(SERVO_FREQ);  // Analog servos run at this freq
 
   delay(10);
-}
 
-void setServoPulse(uint8_t n, double pulse) {
-  double pulselength;
-  
-  pulselength = 1000000;   // 1,000,000 us per second
-  pulselength /= SERVO_FREQ;   // Analog servos run at ~60 Hz updates
-  Serial.print(pulselength); Serial.println(" us per period"); 
-  pulselength /= 4096;  // 12 bits of resolution
-  Serial.print(pulselength); Serial.println(" us per bit"); 
-  pulse *= 1000000;  // convert input seconds to us
-  pulse /= pulselength;
-  Serial.println(pulse);
-  pwm.setPWM(n, 0, pulse);
+  // 10 second countdown
+  for (uint8_t i = 0; i < 10; i++) {
+    // Show starting in seconds
+    Serial.print("Starting in "); Serial.println(10 - i);
+    delay(1000);
+  }
 }
 
 // our servo # counter
 uint8_t servonum = 0;
 
 void loop() {
-  // Drive each servo one at a time using setPWM()
+  //Show servo number
+  Serial.print("Servo #");
   Serial.println(servonum);
+  // Drive each servo one at a time using setPWM()
   for (uint16_t pulselen = SERVOMIN; pulselen < SERVOMAX; pulselen++) {
     pwm.setPWM(servonum, 0, pulselen);
+    delay(50);
   }
 
   delay(500);
   for (uint16_t pulselen = SERVOMAX; pulselen > SERVOMIN; pulselen--) {
     pwm.setPWM(servonum, 0, pulselen);
+    delay(50);
   }
-
-  delay(500);
-
-  // Drive each servo one at a time using writeMicroseconds(), it's not precise due to calculation rounding!
-  // The writeMicroseconds() function is used to mimic the Arduino Servo library writeMicroseconds() behavior. 
-  for (uint16_t microsec = USMIN; microsec < USMAX; microsec++) {
-    pwm.writeMicroseconds(servonum, microsec);
-  }
-
-  delay(500);
-  for (uint16_t microsec = USMAX; microsec > USMIN; microsec--) {
-    pwm.writeMicroseconds(servonum, microsec);
-  }
-
-  delay(500);
 
   servonum++;
   if (servonum > 5) servonum = 0; // Testing the first 6 servo channels
