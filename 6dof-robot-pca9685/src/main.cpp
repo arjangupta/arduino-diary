@@ -39,13 +39,15 @@ void loop() {
   // Drive each servo one at a time using setPWM()
   for (uint16_t pulselen = SERVOMIN; pulselen < SERVOMAX; pulselen++) {
     pwm.setPWM(servonum, 0, pulselen);
-    delay(50);
+    // pwm.setPWM(servonum+1, 0, pulselen);
+    delay(10);
   }
 
   delay(500);
   for (uint16_t pulselen = SERVOMAX; pulselen > SERVOMIN; pulselen--) {
     pwm.setPWM(servonum, 0, pulselen);
-    delay(50);
+    // pwm.setPWM(servonum+1, 0, pulselen);
+    delay(10);
   }
 
   // servonum++;
