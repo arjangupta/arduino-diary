@@ -10,7 +10,6 @@ Adafruit_PWMServoDriver pwm = Adafruit_PWMServoDriver();
 
 void setup() {
   Serial.begin(9600);
-  Serial.println("6 channel PWM test!");
 
   pwm.begin();
   pwm.setOscillatorFrequency(27000000);
@@ -25,16 +24,18 @@ void setup() {
   //   delay(1000);
   // }
 
-  pwm.setPWM(1, 0, SERVOMAX);
 }
 
 // our servo # counter
-uint8_t servonum = 0;
+uint8_t servonum = 4;
 
 void loop() {
-  //Show servo number
-  Serial.print("Servo #");
-  Serial.println(servonum);
+
+  pwm.setPWM(1, 0, SERVOMAX-50);
+  pwm.setPWM(2, 0, SERVOMAX-75);
+  pwm.setPWM(3, 0, SERVOMAX-100);
+  
+  
   // Drive each servo one at a time using setPWM()
   for (uint16_t pulselen = SERVOMIN; pulselen < SERVOMAX; pulselen++) {
     pwm.setPWM(servonum, 0, pulselen);
@@ -47,6 +48,6 @@ void loop() {
     delay(50);
   }
 
-  servonum++;
-  if (servonum > 5) servonum = 0; // Testing the first 6 servo channels
+  // servonum++;
+  // if (servonum > 5) servonum = 0; // Testing the first 6 servo channels
 }
