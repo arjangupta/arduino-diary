@@ -10,7 +10,7 @@ Adafruit_PWMServoDriver pca9685_module = Adafruit_PWMServoDriver();
 
 // Setup the robot joints
 RobotJoint joints[5] = {
-    RobotJoint(0, SERVOMIN+150, SERVOMAX-100, &pca9685_module),
+    RobotJoint(0, 170, 350, &pca9685_module),
     RobotJoint(1, SERVOMIN, SERVOMAX, &pca9685_module),
     RobotJoint(2, SERVOMIN, SERVOMAX, &pca9685_module),
     RobotJoint(3, SERVOMIN, SERVOMAX, &pca9685_module),
@@ -29,15 +29,16 @@ void setup() {
   delay(10);
 
   // Setup destination angles
-  joints[1].setImmediateTarget(SERVOMAX-50);
-  joints[2].setImmediateTarget(SERVOMAX-75);
-  joints[3].setImmediateTarget(SERVOMAX-100);
+  joints[0].setImmediateTarget(200);
+  joints[1].setImmediateTarget(300);
+  joints[2].setImmediateTarget(300);
+  joints[3].setImmediateTarget(300);
   joints[4].setImmediateTarget(SERVOMAX5-50);
-  // joints[]
+  // joints[5].setImmediateTarget(SERVOMAX-50);
 }
 
-// Define list of targets for joint 0
-uint16_t joint0_targets[5] = {200, 300, 200, 350, 220};
+// Define list of random targets for joint 0, between 170 and 350
+uint16_t joint0_targets[5] = {170, 200, 250, 300, 350};
 uint8_t joint0_target_index = 0;
 
 void loop() {

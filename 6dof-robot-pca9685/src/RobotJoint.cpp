@@ -22,7 +22,7 @@ RobotJoint::RobotJoint(uint8_t servo_num, uint16_t min, uint16_t max, Adafruit_P
             this->_current = max;
             break;
         case 3:
-            this->_current = 0;
+            this->_current = max;
             break;
         case 4:
             this->_current = (max - min) / 2;
@@ -41,7 +41,7 @@ RobotJoint::RobotJoint(uint8_t servo_num, uint16_t min, uint16_t max, Adafruit_P
 
 void RobotJoint::setTargetAngle(uint16_t destination) {
     if (destination > this->_max || destination < this->_min) {
-        Serial.print("Invalid destination");
+        Serial.print("Invalid destination ");
         Serial.print(destination);
         Serial.print(" for joint");
         Serial.println(this->_servo_num);
@@ -54,7 +54,7 @@ void RobotJoint::setTargetAngle(uint16_t destination) {
 
 void RobotJoint::setImmediateTarget(uint16_t destination) {
     if (destination > this->_max || destination < this->_min) {
-        Serial.print("Invalid destination");
+        Serial.print("Invalid destination ");
         Serial.print(destination);
         Serial.print(" for joint");
         Serial.println(this->_servo_num);
@@ -80,11 +80,20 @@ void RobotJoint::propagate() {
         if (this->_current == this->_destination) {
             Serial.print("Joint ");
             Serial.print(this->_servo_num);
-            Serial.println(" reached destination");
+            Serial.print(" reached destination ");
+            Serial.println(this->_destination);
             _valid_destination = false;
             return;
         } else {
-            ++this->_current;
+            if (this->_current < this->_destination) {
+                ++this->_current;
+            } else {
+                --this->_current;
+            }
+            // Serial.print("Joint ");
+            // Serial.print(this->_servo_num);
+            // Serial.print(" - current pos: ");
+            // Serial.println(this->_current);
         }
     }
 }
