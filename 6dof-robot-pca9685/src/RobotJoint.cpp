@@ -41,8 +41,11 @@ RobotJoint::RobotJoint(uint8_t servo_num, uint16_t min, uint16_t max, Adafruit_P
 
 void RobotJoint::setTargetAngle(uint16_t destination) {
     if (destination > this->_max || destination < this->_min) {
-        Serial.print("Invalid destination for joint");
+        Serial.print("Invalid destination");
+        Serial.print(destination);
+        Serial.print(" for joint");
         Serial.println(this->_servo_num);
+        this->_valid_destination = false;
         return;
     }
     this->_destination = destination;
@@ -51,8 +54,11 @@ void RobotJoint::setTargetAngle(uint16_t destination) {
 
 void RobotJoint::setImmediateTarget(uint16_t destination) {
     if (destination > this->_max || destination < this->_min) {
-        Serial.print("Invalid destination for joint");
+        Serial.print("Invalid destination");
+        Serial.print(destination);
+        Serial.print(" for joint");
         Serial.println(this->_servo_num);
+        this->_valid_immediate_target = false;
         return;
     }
     this->_immediate_target = destination;
@@ -83,6 +89,12 @@ void RobotJoint::propagate() {
     }
 }
 
+/**
+ * @brief Check if the joint is moving by checking if it has a valid destination or immediate target
+ * 
+ * @return true 
+ * @return false 
+ */
 bool RobotJoint::isMoving() {
     return this->_valid_destination || this->_valid_immediate_target;
 }
