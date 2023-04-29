@@ -31,31 +31,19 @@ void setup() {
 
 
   // Setup destination angles
-  joint1.setImmediateTarget(SERVOMAX-50);
-  joint2.setImmediateTarget(SERVOMAX-75);
-  joint3.setImmediateTarget(SERVOMAX-100);
+  joints[1].setImmediateTarget(SERVOMAX-50);
+  joints[2].setImmediateTarget(SERVOMAX-75);
+  joints[3].setImmediateTarget(SERVOMAX-100);
 }
 
 // our servo # counter
 uint8_t gripper_rotator_servo_num = 4;
 
 void loop() {
-  Serial.println("Looping");
-
-  // Drive each servo one at a time using setpca9685_module()
-  for (uint16_t pulselen = SERVOMIN; pulselen < SERVOMAX5; pulselen++) {
-    pca9685_module.setpca9685_module(gripper_rotator_servo_num, 0, pulselen+100);
-    pca9685_module.setpca9685_module(gripper_rotator_servo_num+1, 0, pulselen);
-    delay(10);
+  // Propagate the joints
+  for (int i = 0; i < 5; i++) {
+    joints[i].propagate();
   }
-  Serial.println("Reached max position");
-  delay(100);
-
-  for (uint16_t pulselen = SERVOMAX5; pulselen > SERVOMIN; pulselen--) {
-    pca9685_module.setpca9685_module(gripper_rotator_servo_num, 0, pulselen+100);
-    pca9685_module.setpca9685_module(gripper_rotator_servo_num+1, 0, pulselen);
-    delay(10);
-  }
-  Serial.println("Reached min position");
-  delay(100);
+  
+  delay(10);
 }
