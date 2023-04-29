@@ -82,3 +82,7 @@ void RobotJoint::propagate() {
         }
     }
 }
+
+bool RobotJoint::isMoving() {
+    return this->_valid_destination || this->_valid_immediate_target;
+}

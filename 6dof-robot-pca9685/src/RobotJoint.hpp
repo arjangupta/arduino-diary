@@ -13,6 +13,7 @@ public:
     RobotJoint(uint8_t servo_num, uint16_t min, uint16_t max, Adafruit_PWMServoDriver* pwm);
     void setTargetAngle(uint16_t destination);
     void setImmediateTarget(uint16_t destination);
+    bool isMoving();
     void propagate();
 private:
     uint8_t _servo_num;
