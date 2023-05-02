@@ -14,7 +14,7 @@ void setup() {
 
 void loop() {
   // Delay between measurements
-  delay(5000);
+  delay(10000);
   // Read humidity
   float humidity = dht.readHumidity();
   // Read temperature as Fahrenheit
@@ -34,8 +34,8 @@ void loop() {
   Serial.print(" %\t");
   Serial.print("Temperature: ");
   Serial.print(temp_f);
-  Serial.print(" *F\t");
+  Serial.print(" F\t");
   Serial.print("Heat index: ");
   Serial.print(hif);
-  Serial.println(" *F");
+  Serial.println(" F");
 }
