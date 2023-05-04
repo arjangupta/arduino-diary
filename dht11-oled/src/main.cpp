@@ -1,4 +1,5 @@
 #include <Arduino.h>
+#include <Wire.h>
 #include "DHT.h"
 
 #define DHTPIN 2
@@ -8,7 +9,7 @@ DHT dht(DHTPIN, DHTTYPE);
 
 void setup() {
   Serial.begin(9600);
-  Serial.println("DHT11 test!");
+  Serial.println("DHT11 with OLED!");
   dht.begin();
 }
 
