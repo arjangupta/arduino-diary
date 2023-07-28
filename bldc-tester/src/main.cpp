@@ -20,11 +20,18 @@ void loop() {
 
   int potVal = analogRead(potentiometerPin); // read input from potentiometer.
 
+  // The potentiometer values can jump around suddenly at times. To deal with this, we
+  // only update the PWM value if the potentiometer value has changed by at most 25. If it changes by more than 25,
+  // we ignore the new value and clamp the PWM value to an increment of 25.
+  static int lastPotVal = 0;
+  if (abs(potVal - lastPotVal) > 25) {
+    potVal = lastPotVal + (potVal > lastPotVal ? 25 : -25);
+  }
+  lastPotVal = potVal;
+
   // Show the potentiometer value in the serial monitor.
   Serial.print("Potentiometer value: ");
   Serial.println(potVal);
-
-  // TODO: The potentiometer values can jump around suddenly at times, need to smooth them out somehow, or just ignore the sudden jumps.
 
   int pwmVal = map(potVal,0, 1023, 1100, 1900); // maps potentiometer values to PWM value.
 
