@@ -6,17 +6,25 @@ byte potentiometerPin = A0; // analog input pin for the potentiometer.
 Servo servo;
 
 void setup() {
-servo.attach(servoPin);
-servo.writeMicroseconds(1500); // send "stop" signal to ESC. Also necessary to arm the ESC.
+  Serial.begin(9600); // initialize serial communication at 9600 bits per second.
+  // Show welcome message in the serial monitor.
+  Serial.println("Welcome to the Arduino BLDC ESC tester!");
 
-delay(7000); // delay to allow the ESC to recognize the stopped signal.
+  servo.attach(servoPin);
+  servo.writeMicroseconds(1500); // send "stop" signal to ESC. Also necessary to arm the ESC.
+
+  delay(7000); // delay to allow the ESC to recognize the stopped signal.
 }
 
 void loop() {
 
-int potVal = analogRead(potentiometerPin); // read input from potentiometer.
+  int potVal = analogRead(potentiometerPin); // read input from potentiometer.
 
-int pwmVal = map(potVal,0, 1023, 1100, 1900); // maps potentiometer values to PWM value.
+  // Show the potentiometer value in the serial monitor.
+  Serial.print("Potentiometer value: ");
+  Serial.println(potVal);
 
-servo.writeMicroseconds(pwmVal); // Send signal to ESC.
+  int pwmVal = map(potVal,0, 1023, 1100, 1900); // maps potentiometer values to PWM value.
+
+  servo.writeMicroseconds(pwmVal); // Send signal to ESC.
 }
