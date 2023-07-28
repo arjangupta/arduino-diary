@@ -20,6 +20,13 @@ void loop() {
 
   int potVal = analogRead(potentiometerPin); // read input from potentiometer.
 
+  // If we read potValues less than 0 or greater than 1023, we clamp them to 0 and 1023 respectively.
+  if (potVal < 0) {
+    potVal = 0;
+  } else if (potVal > 1023) {
+    potVal = 1023;
+  }
+
   // The potentiometer values can jump around suddenly at times. To deal with this, we
   // only update the PWM value if the potentiometer value has changed by at most 25. If it changes by more than 25,
   // we ignore the new value and clamp the PWM value to an increment of 25.
